@@ -1,0 +1,1914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HireReady - Personalized Skill Development & Hiring</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, 
+                #fef9e7 0%, 
+                #e8f5e9 20%, 
+                #e3f2fd 40%, 
+                #f3e5f5 60%, 
+                #fff3e0 80%, 
+                #fce4ec 100%);
+            background-size: 400% 400%;
+            animation: rainbowBackground 20s ease infinite;
+            min-height: 100vh;
+            color: #2c3e50;
+        }
+
+        @keyframes rainbowBackground {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 50% 75%; }
+            50% { background-position: 100% 50%; }
+            75% { background-position: 50% 25%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 200% 200%;
+            animation: headerGradient 8s ease infinite;
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.4);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes headerGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                rgba(255, 0, 0, 0.1), 
+                rgba(255, 154, 0, 0.1), 
+                rgba(255, 255, 0, 0.1), 
+                rgba(0, 255, 0, 0.1), 
+                rgba(0, 255, 255, 0.1), 
+                rgba(0, 0, 255, 0.1), 
+                rgba(255, 0, 255, 0.1));
+            animation: rainbowShine 10s linear infinite;
+        }
+
+        @keyframes rainbowShine {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+            animation: headerShine 6s infinite;
+        }
+
+        @keyframes headerShine {
+            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+            50% { transform: translate(-50%, -50%) rotate(180deg); }
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .welcome-screen {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .welcome-screen h2 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .welcome-options {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .option-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            max-width: 400px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, 
+                #667eea, #764ba2, #f093fb, #a29bfe, #74b9ff, #55efc4, #ffeaa7, #667eea);
+            background-size: 200% 100%;
+            animation: rainbowSlide 5s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        @keyframes rainbowSlide {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .option-card:hover::before {
+            opacity: 1;
+        }
+
+        .option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+        }
+
+        .option-card h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .option-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+
+        .step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+            color: #667eea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .step.active .step-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 200% 200%;
+            animation: activeStepPulse 3s ease infinite;
+            color: white;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+        }
+
+        @keyframes activeStepPulse {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .step.completed .step-number {
+            background: linear-gradient(135deg, 
+                #55efc4 0%, 
+                #81ecec 25%, 
+                #74b9ff 50%, 
+                #a29bfe 75%, 
+                #ffeaa7 100%);
+            background-size: 300% 300%;
+            animation: completedRainbowShift 8s ease infinite;
+            color: white;
+        }
+
+        @keyframes completedRainbowShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .step-label {
+            font-weight: 600;
+            color: #666;
+        }
+
+        .step.active .step-label {
+            color: #667eea;
+        }
+
+        .step.completed .step-label {
+            color: #55efc4;
+            font-weight: 700;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, 
+                rgba(102, 126, 234, 0.02) 0%, 
+                rgba(162, 155, 254, 0.02) 50%, 
+                rgba(240, 147, 251, 0.02) 100%);
+            pointer-events: none;
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card h3 {
+            color: #a29bfe;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mcq-question {
+            background: linear-gradient(135deg, #f8f9ff 0%, #f3e5f5 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .question-number {
+            color: #667eea;
+            font-weight: 700;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 1.1em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .mcq-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .mcq-option {
+            padding: 15px 20px;
+            background: white;
+            border: 2px solid #e3f2fd;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1em;
+        }
+
+        .mcq-option:hover {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #f8f9ff 0%, #f3e5f5 100%);
+            transform: translateX(5px);
+        }
+
+        .mcq-option.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white;
+            font-weight: 600;
+        }
+
+        .career-tier {
+            margin: 30px 0;
+        }
+
+        .tier-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 1em;
+        }
+
+        .tier-best {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            background-size: 200% 200%;
+            animation: tierBestShift 4s ease infinite;
+            color: #d63031;
+            box-shadow: 0 4px 15px rgba(253, 203, 110, 0.5);
+        }
+
+        @keyframes tierBestShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .tier-better {
+            background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+            background-size: 200% 200%;
+            animation: tierBetterShift 5s ease infinite;
+            color: white;
+            box-shadow: 0 4px 15px rgba(162, 155, 254, 0.5);
+        }
+
+        @keyframes tierBetterShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .tier-good {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            background-size: 200% 200%;
+            animation: tierGoodShift 6s ease infinite;
+            color: white;
+            box-shadow: 0 4px 15px rgba(116, 185, 255, 0.5);
+        }
+
+        @keyframes tierGoodShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .career-card {
+            background: linear-gradient(135deg, #f8f9ff 0%, #f3e5f5 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #667eea;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .career-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .career-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+        }
+
+        .career-card.selected {
+            border-left: 5px solid #4cd964;
+            background: linear-gradient(135deg, #e8f9ea 0%, #d4edda 100%);
+        }
+
+        .chat-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .chat-messages {
+            height: 400px;
+            overflow-y: auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9ff 0%, #f3e5f5 100%);
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            margin: 15px 0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-bubble {
+            max-width: 70%;
+            padding: 12px 18px;
+            border-radius: 15px;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .message.ai .message-bubble {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 200% 200%;
+            animation: messageBubbleShift 6s ease infinite;
+            color: white;
+            border-bottom-left-radius: 5px;
+        }
+
+        @keyframes messageBubbleShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .message.user .message-bubble {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+            color: #2c3e50;
+            border-bottom-right-radius: 5px;
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 12px 18px;
+            border: 2px solid #e3f2fd;
+            border-radius: 25px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .chat-send-btn {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 200% 200%;
+            animation: sendButtonShift 4s ease infinite;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        @keyframes sendButtonShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .chat-send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+        }
+
+        .syllabus-module {
+            background: linear-gradient(135deg, #f8f9ff 0%, #f3e5f5 100%);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s;
+        }
+
+        .syllabus-module:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .syllabus-module:nth-child(2) {
+            border-left-color: #ffeaa7;
+            background: linear-gradient(135deg, #fffef9 0%, #fff9e6 100%);
+        }
+
+        .syllabus-module:nth-child(3) {
+            border-left-color: #a29bfe;
+            background: linear-gradient(135deg, #f8f7ff 0%, #f3e5f5 100%);
+        }
+
+        .syllabus-module:nth-child(4) {
+            border-left-color: #74b9ff;
+            background: linear-gradient(135deg, #f0f8ff 0%, #e3f2fd 100%);
+        }
+
+        .syllabus-module:nth-child(5) {
+            border-left-color: #55efc4;
+            background: linear-gradient(135deg, #f0fff4 0%, #e8f5e9 100%);
+        }
+
+        .module-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .learning-material {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border: 2px solid #e3f2fd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .learning-material:hover {
+            border-color: #667eea;
+            transform: translateX(5px);
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+        }
+
+        .material-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .material-icon {
+            font-size: 2em;
+        }
+
+        .professor-card {
+            display: flex;
+            gap: 20px;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border: 2px solid #e3f2fd;
+            transition: all 0.3s;
+        }
+
+        .professor-card:hover {
+            border-color: #667eea;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .professor-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 200% 200%;
+            animation: avatarShift 5s ease infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2em;
+            font-weight: 700;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        @keyframes avatarShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .professor-card:nth-child(2) .professor-avatar {
+            background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 50%, #a29bfe 100%);
+            background-size: 200% 200%;
+            animation: avatarShift 6s ease infinite;
+            box-shadow: 0 4px 15px rgba(162, 155, 254, 0.4);
+        }
+
+        .professor-card:nth-child(3) .professor-avatar {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 50%, #74b9ff 100%);
+            background-size: 200% 200%;
+            animation: avatarShift 7s ease infinite;
+            box-shadow: 0 4px 15px rgba(116, 185, 255, 0.4);
+        }
+
+        .professor-card:nth-child(4) .professor-avatar {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 50%, #ffeaa7 100%);
+            background-size: 200% 200%;
+            animation: avatarShift 8s ease infinite;
+            box-shadow: 0 4px 15px rgba(253, 203, 110, 0.4);
+        }
+
+        .professor-info {
+            flex: 1;
+        }
+
+        .professor-name {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .professor-specialty {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .rating {
+            color: #ffd700;
+            margin-bottom: 8px;
+        }
+
+        .recruiter-card {
+            background: linear-gradient(135deg, #fff 0%, #f8f9ff 100%);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 15px 0;
+            border: 2px solid #e3f2fd;
+            transition: all 0.3s;
+        }
+
+        .recruiter-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .company-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 200% 200%;
+            animation: logoShift 5s ease infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.4);
+        }
+
+        @keyframes logoShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .recruiter-card:nth-child(2) .company-logo {
+            background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 50%, #a29bfe 100%);
+            background-size: 200% 200%;
+            animation: logoShift 6s ease infinite;
+            box-shadow: 0 4px 10px rgba(162, 155, 254, 0.4);
+        }
+
+        .recruiter-card:nth-child(3) .company-logo {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 50%, #74b9ff 100%);
+            background-size: 200% 200%;
+            animation: logoShift 7s ease infinite;
+            box-shadow: 0 4px 10px rgba(116, 185, 255, 0.4);
+        }
+
+        .recruiter-card:nth-child(4) .company-logo {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 50%, #ffeaa7 100%);
+            background-size: 200% 200%;
+            animation: logoShift 8s ease infinite;
+            box-shadow: 0 4px 10px rgba(253, 203, 110, 0.4);
+        }
+
+        .recruiter-card:nth-child(5) .company-logo {
+            background: linear-gradient(135deg, #55efc4 0%, #00b894 50%, #55efc4 100%);
+            background-size: 200% 200%;
+            animation: logoShift 9s ease infinite;
+            box-shadow: 0 4px 10px rgba(85, 239, 196, 0.4);
+        }
+
+        .job-match {
+            display: inline-block;
+            background: #55efc4;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .job-match-high {
+            background: linear-gradient(135deg, #55efc4 0%, #81ecec 100%);
+        }
+
+        .job-match-medium {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+        }
+
+        .job-match-low {
+            background: linear-gradient(135deg, #74b9ff 0%, #a29bfe 100%);
+        }
+
+        .scorecard {
+            background: #fff9e6;
+            border: 2px solid #ffd700;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+
+        .scorecard-title {
+            font-weight: 700;
+            color: #d4a017;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .score-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .score-item:last-child {
+            border-bottom: none;
+        }
+
+        .score-value {
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 10px 5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 200% 200%;
+            animation: buttonShift 4s ease infinite;
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        @keyframes buttonShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e8eaf6 100%);
+            color: #a29bfe;
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #e1bee7 0%, #c5cae9 100%);
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #55efc4 0%, #81ecec 100%);
+            background-size: 200% 200%;
+            animation: successButtonShift 5s ease infinite;
+            color: white;
+            box-shadow: 0 4px 15px rgba(85, 239, 196, 0.4);
+        }
+
+        @keyframes successButtonShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(85, 239, 196, 0.5);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            background: #e3f2fd;
+            color: #667eea;
+            border-radius: 15px;
+            font-size: 0.9em;
+            margin: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.2);
+        }
+
+        .badge-salary {
+            background: linear-gradient(135deg, #55efc4 0%, #81ecec 100%);
+            color: white;
+        }
+
+        .badge-demand {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            color: white;
+        }
+
+        .badge-experience {
+            background: linear-gradient(135deg, #a29bfe 0%, #74b9ff 100%);
+            color: white;
+        }
+
+        .alert {
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+
+        .alert-info {
+            background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+            color: #0c5460;
+            border-left: 4px solid #17a2b8;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .quiz-progress {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.2em;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .welcome-options {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .option-card {
+                width: 100%;
+            }
+
+            .professor-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .step-indicator {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .chat-messages {
+                height: 300px;
+            }
+
+            .message-bubble {
+                max-width: 85%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 HireReady</h1>
+            <p class="subtitle">Your Personalized Skill Development & Career Launchpad</p>
+        </header>
+
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="card">
+            <div class="welcome-screen">
+                <h2>Welcome to HireReady!</h2>
+                <p style="color: #666; font-size: 1.1em; margin: 20px 0;">Choose your path to success:</p>
+                
+                <div class="welcome-options">
+                    <div class="option-card" onclick="startFullJourney()">
+                        <div style="font-size: 3em; margin-bottom: 15px;">🎓</div>
+                        <h3>Complete Learning Journey</h3>
+                        <p>Take the skill assessment test, get personalized career recommendations, custom syllabus, connect with professors, and access job opportunities.</p>
+                        <button class="btn btn-primary">Start Full Journey</button>
+                    </div>
+                    
+                    <div class="option-card" onclick="skipToRecruiters()">
+                        <div style="font-size: 3em; margin-bottom: 15px;">💼</div>
+                        <h3>Direct Recruiter Access</h3>
+                        <p>Already skilled? Skip the learning and go straight to job opportunities. Your assessment scores will be shared with recruiters.</p>
+                        <button class="btn btn-secondary">Skip to Jobs</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step Indicator -->
+        <div id="step-indicator" class="step-indicator hidden">
+            <div class="step" id="step-1">
+                <div class="step-number">1</div>
+                <div class="step-label">MCQ Test</div>
+            </div>
+            <div class="step" id="step-2">
+                <div class="step-number">2</div>
+                <div class="step-label">Career Paths</div>
+            </div>
+            <div class="step" id="step-3">
+                <div class="step-number">3</div>
+                <div class="step-label">Syllabus</div>
+            </div>
+            <div class="step" id="step-4">
+                <div class="step-number">4</div>
+                <div class="step-label">Learning</div>
+            </div>
+            <div class="step" id="step-5">
+                <div class="step-number">5</div>
+                <div class="step-label">Jobs</div>
+            </div>
+        </div>
+
+        <!-- MCQ Assessment Section -->
+        <div id="mcq-section" class="card hidden">
+            <h2>Skill Assessment Test</h2>
+            <p style="color: #666; margin-bottom: 20px;">Answer the following questions to help us understand your skills and recommend the best career paths.</p>
+            
+            <div class="quiz-progress">
+                <span id="current-question">1</span> / <span id="total-questions">15</span>
+            </div>
+
+            <div id="mcq-container"></div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-secondary" id="prev-btn" onclick="previousQuestion()" disabled>← Previous</button>
+                <button class="btn btn-primary" id="next-btn" onclick="nextQuestion()">Next →</button>
+                <button class="btn btn-success hidden" id="submit-btn" onclick="submitAssessment()">Submit Assessment</button>
+            </div>
+        </div>
+
+        <!-- Career Paths Section -->
+        <div id="career-section" class="card hidden">
+            <h2>Your Career Path Recommendations</h2>
+            <p style="color: #666; margin-bottom: 30px;">Based on your assessment, here are careers matched to your skills, ranked by fit:</p>
+
+            <div id="career-tiers"></div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-primary" onclick="proceedToSyllabus()">Continue with Selected Career →</button>
+            </div>
+        </div>
+
+        <!-- Syllabus Customization Section -->
+        <div id="syllabus-section" class="card hidden">
+            <h2>Your Personalized Syllabus</h2>
+            <p style="color: #666; margin-bottom: 20px;">Here's your customized learning path. Use the AI assistant below to further customize it.</p>
+
+            <div id="syllabus-content"></div>
+
+            <!-- AI Chat for Customization -->
+            <div class="chat-container">
+                <h3>💬 AI Assistant - Customize Your Syllabus</h3>
+                <p style="color: #666; margin-bottom: 15px; font-size: 0.95em;">Ask questions or request changes to your learning path. For example: "Add more projects" or "Focus more on practical skills"</p>
+                
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message ai">
+                        <div class="message-bubble">
+                            👋 Hi! I'm your AI learning advisor. I've created a personalized syllabus for you. Feel free to ask me to modify it based on your preferences and goals!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-input-container">
+                    <input type="text" class="chat-input" id="chat-input" placeholder="Type your message..." onkeypress="handleChatKeypress(event)">
+                    <button class="chat-send-btn" onclick="sendChatMessage()">Send</button>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-success" onclick="finalizeSyllabus()">✓ Finalize Syllabus & Continue</button>
+            </div>
+        </div>
+
+        <!-- Learning Materials & Professors Section -->
+        <div id="learning-section" class="card hidden">
+            <h2>Learning Materials & Professors</h2>
+            <p style="color: #666; margin-bottom: 30px;">Access your course materials and connect with expert professors.</p>
+
+            <div id="modules-container"></div>
+
+            <h3 style="margin-top: 40px;">👨‍🏫 Your Professors</h3>
+            <div id="professors-container"></div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-success" onclick="completeAllCourses()">✓ Mark All Courses Complete</button>
+            </div>
+        </div>
+
+        <!-- Recruiters & Jobs Section -->
+        <div id="recruiters-section" class="card hidden">
+            <h2>Job Opportunities & Recruiters</h2>
+            <p style="color: #666; margin-bottom: 30px;">Connect with recruiters actively hiring for positions that match your skillset.</p>
+
+            <div id="recruiters-container"></div>
+        </div>
+    </div>
+
+    <script>
+        // Application state
+        const appState = {
+            userType: null, // 'full' or 'direct'
+            currentQuestion: 0,
+            answers: {},
+            scores: {
+                technical: 0,
+                creative: 0,
+                business: 0,
+                communication: 0
+            },
+            selectedCareer: null,
+            syllabusFinalized: false
+        };
+
+        // MCQ Questions Database
+        const mcqQuestions = [
+            {
+                id: 1,
+                category: 'technical',
+                question: 'How comfortable are you with writing code in programming languages?',
+                options: [
+                    { text: 'Very comfortable, I code regularly', points: 5 },
+                    { text: 'Somewhat comfortable, I can write basic programs', points: 3 },
+                    { text: 'Limited experience, still learning', points: 2 },
+                    { text: 'No experience with coding', points: 0 }
+                ]
+            },
+            {
+                id: 2,
+                category: 'technical',
+                question: 'Have you worked with data analysis or statistical tools?',
+                options: [
+                    { text: 'Yes, I use them professionally', points: 5 },
+                    { text: 'Yes, for academic projects', points: 3 },
+                    { text: 'Basic knowledge only', points: 2 },
+                    { text: 'No experience', points: 0 }
+                ]
+            },
+            {
+                id: 3,
+                category: 'technical',
+                question: 'What is your experience with machine learning or AI?',
+                options: [
+                    { text: 'Built ML models and deployed them', points: 5 },
+                    { text: 'Completed courses and small projects', points: 3 },
+                    { text: 'Basic understanding of concepts', points: 2 },
+                    { text: 'No experience', points: 0 }
+                ]
+            },
+            {
+                id: 4,
+                category: 'creative',
+                question: 'How would you rate your design and visual creativity skills?',
+                options: [
+                    { text: 'Excellent, I create designs professionally', points: 5 },
+                    { text: 'Good, I enjoy designing', points: 3 },
+                    { text: 'Basic, learning design principles', points: 2 },
+                    { text: 'Limited design skills', points: 0 }
+                ]
+            },
+            {
+                id: 5,
+                category: 'creative',
+                question: 'Can you create engaging written content (articles, blogs, marketing copy)?',
+                options: [
+                    { text: 'Yes, I write professionally', points: 5 },
+                    { text: 'Yes, I enjoy writing', points: 3 },
+                    { text: 'Basic writing skills', points: 2 },
+                    { text: 'Not confident in writing', points: 0 }
+                ]
+            },
+            {
+                id: 6,
+                category: 'creative',
+                question: 'Have you worked on UI/UX design projects?',
+                options: [
+                    { text: 'Yes, professional experience', points: 5 },
+                    { text: 'Yes, personal or academic projects', points: 3 },
+                    { text: 'Learning UI/UX principles', points: 2 },
+                    { text: 'No experience', points: 0 }
+                ]
+            },
+            {
+                id: 7,
+                category: 'business',
+                question: 'Do you have experience managing projects or teams?',
+                options: [
+                    { text: 'Yes, managed multiple projects/teams', points: 5 },
+                    { text: 'Led small team projects', points: 3 },
+                    { text: 'Participated in team projects', points: 2 },
+                    { text: 'No management experience', points: 0 }
+                ]
+            },
+            {
+                id: 8,
+                category: 'business',
+                question: 'How comfortable are you with marketing and sales concepts?',
+                options: [
+                    { text: 'Very comfortable, worked in marketing/sales', points: 5 },
+                    { text: 'Good understanding of concepts', points: 3 },
+                    { text: 'Basic knowledge', points: 2 },
+                    { text: 'No experience', points: 0 }
+                ]
+            },
+            {
+                id: 9,
+                category: 'business',
+                question: 'Have you analyzed financial data or created business strategies?',
+                options: [
+                    { text: 'Yes, professional experience', points: 5 },
+                    { text: 'Yes, academic or personal projects', points: 3 },
+                    { text: 'Basic understanding', points: 2 },
+                    { text: 'No experience', points: 0 }
+                ]
+            },
+            {
+                id: 10,
+                category: 'communication',
+                question: 'How effective are you at presenting ideas to groups?',
+                options: [
+                    { text: 'Very effective, I present regularly', points: 5 },
+                    { text: 'Comfortable presenting', points: 3 },
+                    { text: 'Can present but prefer not to', points: 2 },
+                    { text: 'Not comfortable presenting', points: 0 }
+                ]
+            },
+            {
+                id: 11,
+                category: 'communication',
+                question: 'Can you explain complex technical concepts to non-technical people?',
+                options: [
+                    { text: 'Yes, I do this regularly', points: 5 },
+                    { text: 'Usually successful', points: 3 },
+                    { text: 'Sometimes challenging', points: 2 },
+                    { text: 'Difficult for me', points: 0 }
+                ]
+            },
+            {
+                id: 12,
+                category: 'technical',
+                question: 'What is your experience with web development (HTML, CSS, JavaScript)?',
+                options: [
+                    { text: 'Built multiple websites/apps', points: 5 },
+                    { text: 'Created a few projects', points: 3 },
+                    { text: 'Learning the basics', points: 2 },
+                    { text: 'No experience', points: 0 }
+                ]
+            },
+            {
+                id: 13,
+                category: 'business',
+                question: 'How do you approach problem-solving in complex situations?',
+                options: [
+                    { text: 'Analytical and systematic approach', points: 5 },
+                    { text: 'Use frameworks and methodologies', points: 3 },
+                    { text: 'Trial and error', points: 2 },
+                    { text: 'Need guidance', points: 0 }
+                ]
+            },
+            {
+                id: 14,
+                category: 'communication',
+                question: 'How comfortable are you working in collaborative teams?',
+                options: [
+                    { text: 'Very comfortable, I thrive in teams', points: 5 },
+                    { text: 'Comfortable, enjoy collaboration', points: 3 },
+                    { text: 'Prefer working independently', points: 2 },
+                    { text: 'Struggle with teamwork', points: 0 }
+                ]
+            },
+            {
+                id: 15,
+                category: 'creative',
+                question: 'Can you think of innovative solutions to problems?',
+                options: [
+                    { text: 'Yes, I often come up with creative solutions', points: 5 },
+                    { text: 'Sometimes have creative ideas', points: 3 },
+                    { text: 'Prefer proven solutions', points: 2 },
+                    { text: 'Rely on existing solutions', points: 0 }
+                ]
+            }
+        ];
+
+        // Career paths with requirements
+        const careerPaths = {
+            'ai-ml-engineer': {
+                name: 'AI/Machine Learning Engineer',
+                description: 'Design and develop AI systems and machine learning models',
+                requiredSkills: { technical: 15, creative: 5, business: 5, communication: 5 },
+                salary: '$120k - $180k',
+                demand: 'Very High',
+                icon: '🤖'
+            },
+            'full-stack-dev': {
+                name: 'Full Stack Developer',
+                description: 'Build complete web applications from front-end to back-end',
+                requiredSkills: { technical: 13, creative: 7, business: 5, communication: 5 },
+                salary: '$90k - $140k',
+                demand: 'High',
+                icon: '💻'
+            },
+            'data-scientist': {
+                name: 'Data Scientist',
+                description: 'Extract insights from data and build predictive models',
+                requiredSkills: { technical: 15, creative: 5, business: 8, communication: 7 },
+                salary: '$100k - $150k',
+                demand: 'Very High',
+                icon: '📊'
+            },
+            'ux-designer': {
+                name: 'UX/UI Designer',
+                description: 'Create intuitive and beautiful user experiences',
+                requiredSkills: { technical: 5, creative: 15, business: 5, communication: 10 },
+                salary: '$80k - $130k',
+                demand: 'High',
+                icon: '🎨'
+            },
+            'product-manager': {
+                name: 'Product Manager',
+                description: 'Lead product strategy and development teams',
+                requiredSkills: { technical: 7, creative: 7, business: 15, communication: 15 },
+                salary: '$110k - $160k',
+                demand: 'High',
+                icon: '📋'
+            },
+            'digital-marketer': {
+                name: 'Digital Marketing Specialist',
+                description: 'Drive growth through digital marketing strategies',
+                requiredSkills: { technical: 5, creative: 12, business: 12, communication: 12 },
+                salary: '$70k - $110k',
+                demand: 'Medium',
+                icon: '📱'
+            },
+            'business-analyst': {
+                name: 'Business Analyst',
+                description: 'Analyze business processes and recommend improvements',
+                requiredSkills: { technical: 8, creative: 5, business: 15, communication: 10 },
+                salary: '$75k - $115k',
+                demand: 'High',
+                icon: '📈'
+            },
+            'content-strategist': {
+                name: 'Content Strategist',
+                description: 'Plan and create engaging content strategies',
+                requiredSkills: { technical: 5, creative: 15, business: 10, communication: 12 },
+                salary: '$70k - $110k',
+                demand: 'Medium',
+                icon: '✍️'
+            }
+        };
+
+        // Start functions
+        function startFullJourney() {
+            appState.userType = 'full';
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('step-indicator').classList.remove('hidden');
+            document.getElementById('mcq-section').classList.remove('hidden');
+            document.getElementById('step-1').classList.add('active');
+            displayQuestion();
+        }
+
+        function skipToRecruiters() {
+            appState.userType = 'direct';
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('step-indicator').classList.add('hidden');
+            
+            // Show MCQ first for skill assessment
+            document.getElementById('mcq-section').classList.remove('hidden');
+            displayQuestion();
+        }
+
+        // Display MCQ question
+        function displayQuestion() {
+            const question = mcqQuestions[appState.currentQuestion];
+            const container = document.getElementById('mcq-container');
+            
+            document.getElementById('current-question').textContent = appState.currentQuestion + 1;
+            document.getElementById('total-questions').textContent = mcqQuestions.length;
+            
+            let html = `
+                <div class="mcq-question">
+                    <div class="question-number">Question ${appState.currentQuestion + 1} of ${mcqQuestions.length}</div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="mcq-options">
+            `;
+            
+            question.options.forEach((option, index) => {
+                const isSelected = appState.answers[question.id] === index;
+                html += `
+                    <div class="mcq-option ${isSelected ? 'selected' : ''}" 
+                         onclick="selectOption(${question.id}, ${index}, ${option.points}, '${question.category}')">
+                        ${option.text}
+                    </div>
+                `;
+            });
+            
+            html += `
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+            
+            // Update button states
+            document.getElementById('prev-btn').disabled = appState.currentQuestion === 0;
+            
+            if (appState.currentQuestion === mcqQuestions.length - 1) {
+                document.getElementById('next-btn').classList.add('hidden');
+                document.getElementById('submit-btn').classList.remove('hidden');
+            } else {
+                document.getElementById('next-btn').classList.remove('hidden');
+                document.getElementById('submit-btn').classList.add('hidden');
+            }
+        }
+
+        function selectOption(questionId, optionIndex, points, category) {
+            // Remove points from previous answer if exists
+            const question = mcqQuestions.find(q => q.id === questionId);
+            if (appState.answers[questionId] !== undefined) {
+                const prevPoints = question.options[appState.answers[questionId]].points;
+                appState.scores[category] -= prevPoints;
+            }
+            
+            // Add new points
+            appState.answers[questionId] = optionIndex;
+            appState.scores[category] += points;
+            
+            // Update UI
+            displayQuestion();
+        }
+
+        function nextQuestion() {
+            if (appState.currentQuestion < mcqQuestions.length - 1) {
+                appState.currentQuestion++;
+                displayQuestion();
+            }
+        }
+
+        function previousQuestion() {
+            if (appState.currentQuestion > 0) {
+                appState.currentQuestion--;
+                displayQuestion();
+            }
+        }
+
+        function submitAssessment() {
+            // Calculate career matches
+            const careers = calculateCareerMatches();
+            
+            // Hide MCQ section
+            document.getElementById('mcq-section').classList.add('hidden');
+            
+            if (appState.userType === 'direct') {
+                // Show recruiters directly with scorecard
+                showRecruitersWithScorecard();
+            } else {
+                // Show career recommendations
+                document.getElementById('step-1').classList.add('completed');
+                document.getElementById('step-1').classList.remove('active');
+                document.getElementById('step-2').classList.add('active');
+                document.getElementById('career-section').classList.remove('hidden');
+                displayCareerPaths(careers);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function calculateCareerMatches() {
+            const matches = [];
+            
+            for (const [key, career] of Object.entries(careerPaths)) {
+                let totalMatch = 0;
+                let maxPossible = 0;
+                
+                for (const [skill, required] of Object.entries(career.requiredSkills)) {
+                    totalMatch += Math.min(appState.scores[skill], required);
+                    maxPossible += required;
+                }
+                
+                const matchPercentage = Math.round((totalMatch / maxPossible) * 100);
+                
+                matches.push({
+                    key: key,
+                    career: career,
+                    match: matchPercentage
+                });
+            }
+            
+            // Sort by match percentage
+            matches.sort((a, b) => b.match - a.match);
+            
+            return matches;
+        }
+
+        function displayCareerPaths(careers) {
+            const container = document.getElementById('career-tiers');
+            
+            // Categorize into tiers
+            const best = careers.filter(c => c.match >= 80);
+            const better = careers.filter(c => c.match >= 60 && c.match < 80);
+            const good = careers.filter(c => c.match >= 40 && c.match < 60);
+            
+            let html = '';
+            
+            // Best Choice
+            if (best.length > 0) {
+                html += '<div class="career-tier">';
+                html += '<span class="tier-badge tier-best">🥇 BEST CHOICE</span>';
+                best.forEach(item => {
+                    html += createCareerCard(item);
+                });
+                html += '</div>';
+            }
+            
+            // Better Choice
+            if (better.length > 0) {
+                html += '<div class="career-tier">';
+                html += '<span class="tier-badge tier-better">🥈 BETTER CHOICE</span>';
+                better.forEach(item => {
+                    html += createCareerCard(item);
+                });
+                html += '</div>';
+            }
+            
+            // Good Choice
+            if (good.length > 0) {
+                html += '<div class="career-tier">';
+                html += '<span class="tier-badge tier-good">🥉 GOOD CHOICE</span>';
+                good.forEach(item => {
+                    html += createCareerCard(item);
+                });
+                html += '</div>';
+            }
+            
+            container.innerHTML = html;
+        }
+
+        function createCareerCard(item) {
+            const isSelected = appState.selectedCareer === item.key;
+            return `
+                <div class="career-card ${isSelected ? 'selected' : ''}" onclick="selectCareer('${item.key}')">
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <div>
+                            <div style="font-size: 2em; margin-bottom: 10px;">${item.career.icon}</div>
+                            <h3 style="margin: 10px 0;">${item.career.name}</h3>
+                            <p style="color: #666; margin: 10px 0;">${item.career.description}</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 1.5em; font-weight: 700; color: #667eea;">${item.match}%</div>
+                            <div style="font-size: 0.9em; color: #999;">Match</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <span class="badge badge-salary">💰 ${item.career.salary}</span>
+                        <span class="badge badge-demand">📈 Demand: ${item.career.demand}</span>
+                    </div>
+                    ${isSelected ? '<div class="alert alert-success" style="margin-top: 15px;">✓ Selected</div>' : ''}
+                </div>
+            `;
+        }
+
+        function selectCareer(careerKey) {
+            appState.selectedCareer = careerKey;
+            const careers = calculateCareerMatches();
+            displayCareerPaths(careers);
+        }
+
+        function proceedToSyllabus() {
+            if (!appState.selectedCareer) {
+                alert('Please select a career path first!');
+                return;
+            }
+            
+            document.getElementById('career-section').classList.add('hidden');
+            document.getElementById('step-2').classList.add('completed');
+            document.getElementById('step-2').classList.remove('active');
+            document.getElementById('step-3').classList.add('active');
+            document.getElementById('syllabus-section').classList.remove('hidden');
+            
+            generateSyllabus();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function generateSyllabus() {
+            const career = careerPaths[appState.selectedCareer];
+            const container = document.getElementById('syllabus-content');
+            
+            const modules = [
+                {
+                    name: 'Foundation Level',
+                    duration: '4 weeks',
+                    topics: ['Core Concepts', 'Industry Tools', 'Best Practices', 'Hands-on Exercises']
+                },
+                {
+                    name: 'Intermediate Level',
+                    duration: '6 weeks',
+                    topics: ['Advanced Techniques', 'Real-world Projects', 'Case Studies', 'Portfolio Building']
+                },
+                {
+                    name: 'Advanced Level',
+                    duration: '8 weeks',
+                    topics: ['Specialization', 'Capstone Project', 'Industry Collaboration', 'Professional Networking']
+                },
+                {
+                    name: 'Career Preparation',
+                    duration: '2 weeks',
+                    topics: ['Interview Prep', 'Resume Building', 'Mock Interviews', 'Salary Negotiation']
+                }
+            ];
+            
+            let html = `
+                <div class="alert alert-success">
+                    ✅ Custom syllabus generated for <strong>${career.name}</strong>
+                </div>
+            `;
+            
+            modules.forEach((module, index) => {
+                html += `
+                    <div class="syllabus-module">
+                        <div class="module-header">
+                            <div>
+                                <h3 style="margin: 0;">Module ${index + 1}: ${module.name}</h3>
+                                <p style="color: #666; margin: 5px 0;">Duration: ${module.duration}</p>
+                            </div>
+                        </div>
+                        <div style="margin-top: 10px;">
+                            ${module.topics.map(topic => `<span class="badge">${topic}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        // Chat functionality
+        function sendChatMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if (message === '') return;
+            
+            // Add user message
+            addChatMessage(message, 'user');
+            input.value = '';
+            
+            // Simulate AI response
+            setTimeout(() => {
+                const responses = [
+                    "Great suggestion! I've noted that down. Would you like me to add more focus on that area?",
+                    "I understand. Let me adjust the syllabus to include more practical exercises.",
+                    "That's a good point! I can definitely incorporate more project-based learning.",
+                    "Excellent idea! I'll make sure to emphasize hands-on experience throughout the course.",
+                    "I've updated your syllabus to reflect these changes. Feel free to ask for more modifications!"
+                ];
+                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                addChatMessage(randomResponse, 'ai');
+            }, 1000);
+        }
+
+        function addChatMessage(text, sender) {
+            const container = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            messageDiv.innerHTML = `<div class="message-bubble">${text}</div>`;
+            container.appendChild(messageDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function handleChatKeypress(event) {
+            if (event.key === 'Enter') {
+                sendChatMessage();
+            }
+        }
+
+        function finalizeSyllabus() {
+            appState.syllabusFinalized = true;
+            document.getElementById('syllabus-section').classList.add('hidden');
+            document.getElementById('step-3').classList.add('completed');
+            document.getElementById('step-3').classList.remove('active');
+            document.getElementById('step-4').classList.add('active');
+            document.getElementById('learning-section').classList.remove('hidden');
+            
+            loadLearningMaterials();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function loadLearningMaterials() {
+            const career = careerPaths[appState.selectedCareer];
+            
+            // Load modules
+            const modulesContainer = document.getElementById('modules-container');
+            let modulesHtml = '<h3>📚 Course Modules & Materials</h3>';
+            
+            const modules = [
+                { name: 'Foundation Level', materials: ['Video Lectures', 'Reading Materials', 'Practice Exercises', 'Quiz'] },
+                { name: 'Intermediate Level', materials: ['Advanced Videos', 'Case Studies', 'Group Projects', 'Assessment'] },
+                { name: 'Advanced Level', materials: ['Specialization Content', 'Capstone Project', 'Mentorship Sessions'] },
+                { name: 'Career Prep', materials: ['Interview Guide', 'Resume Template', 'Mock Interviews'] }
+            ];
+            
+            modules.forEach((module, index) => {
+                modulesHtml += `
+                    <div class="syllabus-module">
+                        <h3>Module ${index + 1}: ${module.name}</h3>
+                        ${module.materials.map(mat => `
+                            <div class="learning-material">
+                                <div class="material-info">
+                                    <span class="material-icon">${getMaterialIcon(mat)}</span>
+                                    <span><strong>${mat}</strong></span>
+                                </div>
+                                <button class="btn btn-secondary">Access</button>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            });
+            
+            modulesContainer.innerHTML = modulesHtml;
+            
+            // Load professors
+            const professorsContainer = document.getElementById('professors-container');
+            const professors = [
+                {
+                    name: 'Dr. Sarah Chen',
+                    specialty: career.name,
+                    rating: 4.9,
+                    students: 2500,
+                    experience: '15 years'
+                },
+                {
+                    name: 'Prof. Michael Roberts',
+                    specialty: career.name,
+                    rating: 4.8,
+                    students: 1800,
+                    experience: '12 years'
+                },
+                {
+                    name: 'Dr. Emily Thompson',
+                    specialty: career.name,
+                    rating: 4.9,
+                    students: 3200,
+                    experience: '18 years'
+                }
+            ];
+            
+            let professorsHtml = '';
+            professors.forEach(prof => {
+                const initials = prof.name.split(' ').map(n => n[0]).join('');
+                professorsHtml += `
+                    <div class="professor-card">
+                        <div class="professor-avatar">${initials}</div>
+                        <div class="professor-info">
+                            <div class="professor-name">${prof.name}</div>
+                            <div class="professor-specialty">${prof.specialty}</div>
+                            <div class="rating">⭐ ${prof.rating} / 5.0 (${prof.students} students)</div>
+                            <div style="margin-top: 10px;">
+                                <span class="badge badge-experience">📚 ${prof.experience}</span>
+                            </div>
+                            <button class="btn btn-primary" onclick="connectProfessor('${prof.name}')">Connect with Professor</button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            professorsContainer.innerHTML = professorsHtml;
+        }
+
+        function getMaterialIcon(material) {
+            const icons = {
+                'Video Lectures': '🎥',
+                'Reading Materials': '📖',
+                'Practice Exercises': '✏️',
+                'Quiz': '📝',
+                'Advanced Videos': '🎬',
+                'Case Studies': '📊',
+                'Group Projects': '👥',
+                'Assessment': '📋',
+                'Specialization Content': '🎓',
+                'Capstone Project': '🏆',
+                'Mentorship Sessions': '🤝',
+                'Interview Guide': '💼',
+                'Resume Template': '📄',
+                'Mock Interviews': '🎤'
+            };
+            return icons[material] || '📌';
+        }
+
+        function connectProfessor(profName) {
+            alert(`✅ Connection request sent to ${profName}! They will reach out within 24 hours.`);
+        }
+
+        function completeAllCourses() {
+            document.getElementById('learning-section').classList.add('hidden');
+            document.getElementById('step-4').classList.add('completed');
+            document.getElementById('step-4').classList.remove('active');
+            document.getElementById('step-5').classList.add('active');
+            document.getElementById('recruiters-section').classList.remove('hidden');
+            
+            loadRecruiters(false);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function loadRecruiters(showScorecard) {
+            const career = careerPaths[appState.selectedCareer];
+            const container = document.getElementById('recruiters-container');
+            
+            let html = '<div class="alert alert-success">🎉 Congratulations! You\'re now ready to connect with recruiters.</div>';
+            
+            const jobs = [
+                {
+                    company: 'TechCorp',
+                    position: career.name,
+                    match: 95,
+                    location: 'Remote / San Francisco',
+                    type: 'Full-time'
+                },
+                {
+                    company: 'Innovate Inc',
+                    position: 'Junior ' + career.name,
+                    match: 88,
+                    location: 'New York / Hybrid',
+                    type: 'Full-time'
+                },
+                {
+                    company: 'StartupXYZ',
+                    position: career.name,
+                    match: 92,
+                    location: 'Remote',
+                    type: 'Contract'
+                },
+                {
+                    company: 'DataFlow',
+                    position: career.name,
+                    match: 85,
+                    location: 'Boston / On-site',
+                    type: 'Full-time'
+                }
+            ];
+            
+            jobs.forEach(job => {
+                const companyInitials = job.company.substring(0, 2).toUpperCase();
+                const matchClass = job.match >= 90 ? 'job-match-high' : job.match >= 85 ? 'job-match-medium' : 'job-match-low';
+                html += `
+                    <div class="recruiter-card">
+                        <div class="company-logo">${companyInitials}</div>
+                        <div class="job-match ${matchClass}">${job.match}% Match</div>
+                        <h3 style="margin: 10px 0;">${job.position}</h3>
+                        <p style="font-size: 1.1em; color: #667eea; font-weight: 600; margin: 5px 0;">${job.company}</p>
+                        <p style="color: #666; margin: 10px 0;">📍 ${job.location} • ${job.type}</p>
+                `;
+                
+                if (showScorecard) {
+                    html += `
+                        <div class="scorecard">
+                            <div class="scorecard-title">📊 Your Assessment Scorecard</div>
+                            <div class="score-item">
+                                <span>Technical Skills</span>
+                                <span class="score-value">${appState.scores.technical}/20</span>
+                            </div>
+                            <div class="score-item">
+                                <span>Creative Skills</span>
+                                <span class="score-value">${appState.scores.creative}/20</span>
+                            </div>
+                            <div class="score-item">
+                                <span>Business Skills</span>
+                                <span class="score-value">${appState.scores.business}/15</span>
+                            </div>
+                            <div class="score-item">
+                                <span>Communication Skills</span>
+                                <span class="score-value">${appState.scores.communication}/15</span>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                html += `
+                        <div style="margin-top: 15px;">
+                            <button class="btn btn-primary" onclick="applyJob('${job.company}', '${job.position}')">Apply Now</button>
+                            <button class="btn btn-secondary" onclick="saveJob('${job.company}')">Save for Later</button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function showRecruitersWithScorecard() {
+            // For direct access users, show all possible careers
+            appState.selectedCareer = Object.keys(careerPaths)[0];
+            document.getElementById('recruiters-section').classList.remove('hidden');
+            loadRecruiters(true);
+        }
+
+        function applyJob(company, position) {
+            alert(`🎉 Application submitted to ${company} for ${position}!\n\nYou'll hear back within 5-7 business days.`);
+        }
+
+        function saveJob(company) {
+            alert(`💾 Job at ${company} saved to your favorites!`);
+        }
+    </script>
+</body>
+</html>
